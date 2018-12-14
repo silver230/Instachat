@@ -12,9 +12,6 @@ def index(request):
     like = Likes()
     return render(request,'index.html', {"post":post,"like":like,"comm":comm})
 
-
-
-
 def signup(request):
     form = SignUpForm()
     if request.method == 'POST':
