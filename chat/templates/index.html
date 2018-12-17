@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 
+<h1>welcome home</h1> 
+ 
 <div class="row">
 
 
@@ -13,31 +19,22 @@
 
             {% if post.profile.profimage %}
             <a href='/prof/{{post.user.id}}/'>
-                <img id="prof" style="" src="{{post.profile.profimage.url}}" width="50" height="50" alt="Card image cap">
+                <img id='prof' style="border-radius: 50% ; padding: 0.15rem;  width: 50px; background: linear-gradient(to right bottom, #d82c66, #c92e3b, #e15e43, #f3813f, #ffa63e);" class=" img-circle" src="{{post.profile.profimage.url}}" width="100" height="50" alt="Card image cap ">
                 {{post.user.username}}</a>
                 {{post.id}}
             {% else %}
             <a href='/prof/{{post.user.id}}/'>
-                <img id="prof" style=""  width="50" height="50" src="https://www.w3schools.com/howto/img_avatar.png">
+                <!-- <img id="prof" style="border-radius: 50% ; padding: 0.15rem;  width: 50px; background: linear-gradient(to right bottom, #d82c66, #c92e3b, #e15e43, #f3813f, #ffa63e);" class=" img-circle"  width="50" height="50" src="https://www.w3schools.com/howto/img_avatar.png"> -->
                 {{post.user.username}}</a>
 
             {% endif %}
 
 
-                <a href="/one/{{post.id}}">
+                <a href="/post/{{post.id}}">
             <img src="{{post.image.url}}" style="text-align: center;" alt="" width="570px" height="570px">
         </a>
             <p style="font-size:40px">
-                <form action="/like/{{post.id}}" method="post" enctype="multipart/form-data">
-                {%csrf_token%}
-
-                {% bootstrap_form like %}
-                <button type='submit'>
-                        <i class="fa fa-heart" type='submit' style="font-size:30px;">{{post.likes.all|length}}</i>
-
-                </button>
-               
-            </form>
+           
                  <i class="fa fa-comment"
                     style="font-size:30px;"> {{post.comments.all|length}}</i></p>
             <p class="card-text">{{post.caption}}</p>
@@ -50,13 +47,7 @@
                 {% bootstrap_form comm %}
                 <input type="submit" class="btn btn-primary btn-lg" value="Add comment">
             </form>
-            <form action="/like/{{post.id}}" method="post" enctype="multipart/form-data">
-                {%csrf_token%}
-
-                {% bootstrap_form like %}
-                
-                
-            </form>
+            
             <div style='margin-left: 20px;' >
               <br>
             {% for comment in post.comments.all %}
@@ -64,29 +55,15 @@
             <br>
             {% endfor %}
         </div>
-            {% for likes in post.likes.all %}
-            liked by <h3>{{likes.user.username}}</h3> and {{likes.user|length}} others
-            {% endfor %}
+          
 
 
 
         </div>
-
+        
         <br>
         <br>
 
         {% endfor %}
     </div>
-</div>
-
-{%endblock%}
-
-<script>
-    $(document).ready(function () {
-        $("#comm").click(function () {
-            alert("This is a paragraph.");
-        });
-    });
-</script>
-
- 
+{% endblock %}
