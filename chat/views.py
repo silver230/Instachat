@@ -3,15 +3,17 @@ from . forms import SignUpForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Posts,Profile,Follow
-from .forms import NewPostForm,Prof,Comments,Likes
+from .forms import NewPostForm,Prof,Comments,UserForm,ProfileForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage,message
 from django.http import HttpResponse
+from django.contrib import messages
+from django.utils.translation import gettext as _
 
 
 
@@ -21,9 +23,34 @@ from django.http import HttpResponse
 def index(request):
     post = Posts.objects.all()
     comm = Comments()
-    like = Likes()
-    return render(request,'index.html', {"post":post,"like":like,"comm":comm})
+    # like = Likes()
+    return render(request,'index.html', {"post":post,"comm":comm})
 
+def update_profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
+    user.save()
+    return render(request,"profiles/profile.html",{"user":user,"user_id":user_id})
+
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request,_('Your profile was successfully updated!'))
+            return redirect('settings:profile')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profiles/profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })       
+  
 def signup(request):
     form = SignUpForm()
     if request.method == 'POST':
