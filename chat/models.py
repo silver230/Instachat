@@ -9,7 +9,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     profimage =  models.ImageField(upload_to='media')
     bio = HTMLField(max_length=500)
-
     
     def save_profile(self):
         self.save()
@@ -18,18 +17,19 @@ class Profile(models.Model):
         self.delete()
     
     def __str__(self):
-        return self.user.username
+        return self.bio
 
 class Posts(models.Model):
-    user = models.ForeignKey(User)
+    id = models.primary_key=True
     caption = models.CharField(max_length=250)
+    user=models.ManyToManyField(User,related_name='post')
     image = models.ImageField(upload_to='posts')
     postedon = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile,null=True)
     
     
     def __str__(self):
-        return self.user.username
+        return self.caption
 
     class Meta:
         ordering = ['-id']
