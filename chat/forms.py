@@ -14,6 +14,17 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name','email', 'password1', 'password2', ]
 
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name','last_name','email')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio','location','birth_date','profimage')        
+
 class NewPostForm(forms.ModelForm):
     class Meta:
         model = Posts
@@ -24,7 +35,7 @@ class Prof(forms.ModelForm):
     class Meta:
         model=Profile
         exclude=[]
-        fields=['profimage','bio']
+        fields=['bio']
 
 
 class Comments(forms.ModelForm):
