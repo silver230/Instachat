@@ -1,13 +1,13 @@
-<nav class="navbar navbar-expand-sm bg-light">
- <div class="container">
+<nav class="navbar navbar-expand-sm  bg-light">
+ <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'index' %}">INSTAGRAM</a>
+      <a class="navbar-brand" href="{% url 'index' %}" style="font-family:Neue Helvetica ">INSTAGRAM</a>
     </div>
 
     <!-- Adding a search form  -->
     <div class="col-sm-4 col-md-4 navbar-right">
 
-      <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+      <form class="navbar-form" role="search" action="{% url 'search_results' %}" style="float:right;">
 
         <div class="input-group">
           <input type="text" class="form-control" placeholder="" name="">
@@ -33,6 +33,10 @@
             </li>
             <li>
               <a href="{%url 'new-post'%}">Create post</a>
+            </li>
+
+            <li>
+              <a href="{%url 'profile'%}">profile</a>
             </li>
             <li>
               <a href="/accounts/password/change">Change Password</a>
