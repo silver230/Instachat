@@ -10,8 +10,8 @@
         <div class="panel" style="width: 50%;">
 
             <div class="card-body">
-                <!-- <h5 class="card-title">{{post.user.username}}</h5>
-                        <p class="card-text">{{post.caption}}</p> -->
+            <h5 class="card-title">{{post.user.username}}</h5>
+                        <p class="card-text">{{post.caption}}</p> 
             </div>
             {% if user.profile.profimage %}
             <a href='/profile/{{user.id}}/'>
@@ -32,7 +32,7 @@
 
     {% endfor %}
     {% else %}
-    <h1 id='uname' >NO RESULTS</h1>
+    <h1 id='uname' stye="text-align:center;"> FOUND 0 MATCHES</h1>
     {% endif %}
 
 

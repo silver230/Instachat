@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{%block content%}
+<div class =container>
+  
+<h2>{{ user.get_full_name }}</h2>
+
+  <h1>Username: {{ user.username }}</h1>
+  <h1>Location: {{ user.profile.location }}</h1>
+   
+  <h1>Birth Date: {{ user.profile.birth_date }}</h1>
+  <input type="submit" class="btn btn info btn-lg" value="save">
+<!-- <form method="post">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit">Save changes</button>
+  </form> -->
+</div>
+{%endblock%}
+<script>
+ 
