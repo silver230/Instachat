@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from . forms import SignUpForm
+from . forms import SignUpForm,InstaLetterForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Posts,Profile,Follow
@@ -11,9 +11,10 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage,message
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.contrib import messages
 from django.utils.translation import gettext as _
+from .email import send_welcome_email
 
 
 
@@ -24,6 +25,17 @@ def index(request):
     post = Posts.objects.all()
     comm = Comments()
     # like = Likes()
+    if request.method == 'POST':
+        form =  InstaLetterForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['sylvester']
+            email = form.cleaned_data[sylveromondi@gmail.com]
+
+            recipient = InstaLetterRecipients(name = name,email =email)
+            recipient.save()
+            send_welcome_email(name,email)
+
+            HttpResponseRedirect('index')
     return render(request,'index.html', {"post":post,"comm":comm})
 
 def update_profile(request, user_id):

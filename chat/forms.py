@@ -50,9 +50,8 @@ class Likes(forms.ModelForm):
         exclude=[]
         fields=[]
 
-# class NewPostForm(forms.ModelForm):
-#     class Meta:
-#         model =  Posts
-#         exclude = ['pub_date']
-#         fields =[]
- 
+
+
+class InstaLetterForm(forms.Form):
+    your_name = forms.CharField(label='First Name',max_length=30)
+    email = forms.EmailField(label='Email')

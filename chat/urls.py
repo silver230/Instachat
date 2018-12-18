@@ -16,7 +16,7 @@ urlpatterns=[
         views.activate, name='activate'),
     # url(r'^follow/(?P<operation>.+)/(?P<id>\d+)',views.follow,name='follow'),
     url(r'^comment/(\d+)',views.comment,name='comment'),
-    # url(r'^like/(\d+)',views.likes,name='likes'),
+
     
     
     

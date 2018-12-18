@@ -91,3 +91,7 @@ class Follow(models.Model):
     def unfollow(cls,current_user,new):
         friends,created=cls.objects.get_or_create(current_user=current_user)
         friends.users.remove(new)
+        
+class InstaLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()
